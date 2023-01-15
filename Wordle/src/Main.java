@@ -2,9 +2,8 @@ import java.io.FileNotFoundException;
 import java.io.*;
 import java.util.*;
 public class Main {
-    public static String guess(String guess, String target)
+    public static String guess(Scanner scannerout, String guess, String target)
     {
-        Scanner scannerout = new Scanner(System.in);
         while (guess.length() != target.length())
         {
             guess = scannerout.nextLine().toUpperCase();
@@ -30,7 +29,7 @@ public class Main {
     }
     public static void main(String[] args) throws FileNotFoundException{
         String targetword = "", guess = "";
-        int guess_counter = 0;
+        Random rand = new Random();
         Scanner scannerin = new Scanner(new FileReader ("/Users/malihatasnim/Desktop/projects/Wordle/src" +
                 "/valid-wordle-words.txt"));
         List<String> wordlist = new ArrayList<String>();
@@ -38,6 +37,9 @@ public class Main {
         {
             wordlist.add(scannerin.next());
         }
+        Scanner scannerout = new Scanner(System.in);
+//        int randomnum = rand.nextInt(wordlist.size());
+//        targetword = wordlist.get(randomnum);
         targetword = "aahed";
         targetword = targetword.toUpperCase();
         int attempt = 1;
@@ -46,7 +48,7 @@ public class Main {
             System.out.println("Guess counter: " + attempt);
             attempt++;
             guess = " ";
-            guess = guess(guess,targetword);
+            guess = guess(scannerout,guess,targetword);
             if (equality(targetword, guess))
             {
                 break;
@@ -56,5 +58,6 @@ public class Main {
         {
             System.out.println("No more guesses left. The word was: " + targetword);
         }
+        scannerout.close();
     }
 }
